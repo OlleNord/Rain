@@ -8,6 +8,10 @@ window.addEventListener("keydown", function(e) {
     }
     
 });
+window.addEventListener("resize", function(e) {
+    this.location = location;
+    
+});
 let grid;
 if (16 * 18 < window.innerWidth) {
     grid = 16;
@@ -21,6 +25,12 @@ if (64 * 18 < window.innerWidth) {
 
 canvas.width = grid*18;
 canvas.height = grid*12;
+let fSize = grid*2
+ctx.font = fSize + "px sans-serif";
+ctx.fillStyle = "blue";
+ctx.fillText("RAIN", canvas.width/2-fSize*1.25, canvas.height/2-fSize/2);
+ctx.font = fSize*0.175 + "px sans-serif";
+ctx.fillText("Press any key to continue...", canvas.width/2-fSize*1.20, canvas.height/2-fSize*0.30);
 
 let player = {
     x: canvas.width/2-grid,
@@ -50,7 +60,7 @@ function draw() {
     }
 
     // Player
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "white";
     ctx.fillRect(player.x, player.y, grid, grid);
 }
 function update() {

@@ -44,3 +44,26 @@ p {
     margin: 0;
     font-size: 12px;
 }
+#p5 {
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 5.5em;
+    margin: 0;
+}
+#p6 {
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 9em;
+    margin: 0;
+    font-size: 12px;
+}
+#p7 {
+    position: absolute;
+    display: flex;
+    right: 0;
+    top: 10em;
+    margin: 0;
+    font-size: 12px;
+}

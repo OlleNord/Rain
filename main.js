@@ -1,3 +1,6 @@
+let music = new Audio("Cube.mp3");
+music.play();
+
 const canvas = document.getElementById("c");
 const ctx = canvas.getContext("2d");
 let started = false;
@@ -36,6 +39,8 @@ canvas.height = grid*12;
 let frames = 0;
 let points = 0;
 let lives = 3;
+let speedRate = 100;
+let spawnRate = 200;
 let fSize = grid*2
 ctx.font = fSize + "px sans-serif";
 ctx.fillStyle = "blue";
@@ -58,7 +63,7 @@ class Rain {
         ctx.fillRect(this.x, this.y, grid, grid);
     }
     update() {
-        if (frames % 100 == 0) {
+        if (frames % speedRate == 0) {
             this.y += grid;
         }
         
@@ -107,8 +112,9 @@ function update() {
 }
 function start() {
     requestAnimationFrame(update);
-    nrd = setInterval("newRaindrop()", 500);
+    requestAnimationFrame(newRaindrop);
     requestAnimationFrame(draw);
+    setInterval(makeHarder, 5000);
     for (let i = 0; i < 1; i++) {
         rainDrops[i] = new Rain();
     }
@@ -116,12 +122,21 @@ function start() {
 
 function newRaindrop() {
     if (lives < 1) return
-    rainDrops.push(new Rain());
+    if (frames % spawnRate == 0) {
+        rainDrops.push(new Rain());
+    }
+    requestAnimationFrame(newRaindrop);
 }
 
 function text() {
-    ctx.fillStyle = "blue"
+    ctx.fillStyle = "white"
     ctx.font = fSize/3 + "px sans-serif";
     ctx.fillText("Points: " + points, fSize*0.33, fSize*0.5);
     ctx.fillText("Lives: " + lives, fSize*0.33, fSize*0.78);
+}
+
+
+function makeHarder() {
+    spawnRate -= 10;
+    speedRate -= 10;
 }
